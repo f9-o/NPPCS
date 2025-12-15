@@ -1,9 +1,9 @@
 # NPPCS: National Predictive Patient Care System
 
 ## Overview
-NPPCS (National Predictive Patient Care System) is an advanced, AI-driven command center dashboard designed to enhance national medical resilience. The system utilizes machine learning algorithms to forecast Emergency Department (ED) loads, optimize hospital resource allocation in real-time, and coordinate disaster response across regional health networks.
+NPPCS (National Predictive Patient Care System) is an advanced, AI driven command center dashboard designed to enhance national medical resilience. The system utilizes machine learning algorithms to forecast Emergency Department (ED) loads, optimize hospital resource allocation in real-time, and coordinate disaster response across regional health networks.
 
-Developed as a bilingual platform (English and Arabic), NPPCS integrates seven distinct operational data streams—including live traffic, weather patterns, and historical admission data—to provide actionable insights up to 90 minutes in advance. The system transforms reactive medical operations into proactive, data-driven strategies.
+Developed as a bilingual platform (English and Arabic), NPPCS integrates seven distinct operational data streams—including live traffic, weather patterns, and historical admission data to provide actionable insights up to 90 minutes in advance. The system transforms reactive medical operations into proactive, data driven strategies.
 
 ## Table of Contents
 1.  [Key Features](#key-features)
