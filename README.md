@@ -1,9 +1,9 @@
-# Sentinel: National Predictive Medical Response System
+# NPPCS: National Predictive Patient Care System
 
 ## Overview
-Sentinel is a comprehensive, AI-driven command center dashboard designed to enhance national medical resilience. The system utilizes advanced predictive analytics to forecast Emergency Department (ED) loads, manage hospital resources in real-time, and coordinate disaster response across regional networks.
+NPPCS (National Predictive Patient Care System) is an advanced, AI-driven command center dashboard designed to enhance national medical resilience. The system utilizes machine learning algorithms to forecast Emergency Department (ED) loads, optimize hospital resource allocation in real-time, and coordinate disaster response across regional health networks.
 
-Developed as a bilingual platform (English and Arabic), Sentinel integrates seven distinct data streams—including live traffic, weather patterns, and historical admission data—to provide operational insights up to 90 minutes in advance. The system aims to transform reactive medical responses into proactive resource management strategies.
+Developed as a bilingual platform (English and Arabic), NPPCS integrates seven distinct operational data streams—including live traffic, weather patterns, and historical admission data—to provide actionable insights up to 90 minutes in advance. The system transforms reactive medical operations into proactive, data-driven strategies.
 
 ## Table of Contents
 1.  [Key Features](#key-features)
@@ -17,23 +17,23 @@ Developed as a bilingual platform (English and Arabic), Sentinel integrates seve
 ## Key Features
 
 ### Predictive AI Engine
-* **Hospital-Specific Modeling:** Utilizes distinct regression models trained for individual facility patterns rather than generic regional averages.
-* **Seasonal Forecasting:** Incorporates seasonal coefficients to account for viral outbreaks (e.g., influenza seasons) and environmental factors.
-* **Predictive Quality Score (PQS):** Forecasts critical performance metrics such as Time-to-Assessment (TTA) and Ambulance Offload Times, beyond simple census counts.
+* **Hospital-Specific Modeling:** Deploys distinct regression models trained on individual facility data patterns, accounting for local variables rather than regional averages.
+* **Seasonal Forecasting:** Incorporates seasonal coefficients to adjust predictions for periodic health trends (e.g., influenza seasons) and environmental factors.
+* **Predictive Quality Score (PQS):** Forecasts critical performance metrics including Time-to-Assessment (TTA) and Ambulance Offload Times, providing a deeper metric than simple census counts.
 
 ### Live Tactical Operations
-* **Real-Time Geospatial Mapping:** Features a fully interactive map (v3.0) rendering live ambulance positions (CAD integration), hospital operational status, and dynamic weather hazard zones.
-* **7-Point Data Fusion:** Synthesizes data from Weather, Traffic, Major Events, Bed Capacity, Historical Trends, Live CAD, and Seasonal Patterns.
+* **Real-Time Geospatial Mapping:** Features a dynamic tactical map (v3.0) that renders live ambulance positions via CAD integration, visualizes hospital operational status, and overlays dynamic weather hazard zones.
+* **7-Point Data Fusion:** Synthesizes data from Weather services, Traffic feeds, Major Events calendars, Bed Capacity logs, Historical Trends, Live CAD streams, and Seasonal Patterns.
 
 ### Decision Support
-* **Inter-facility Transfer Logic:** Algorithms analyze network-wide capacity to recommend patient transfers from strained facilities to those with available specialized care.
-* **Timed Alert System:** Generates graduated operational alerts at T-90 minutes (Advisory), T-45 minutes (Warning), and T-15 minutes (Critical) intervals.
+* **Inter-facility Transfer Logic:** Algorithms analyze network-wide capacity to identify saturation points and recommend patient transfers to facilities with available specialized care.
+* **Timed Alert System:** Generates graduated operational alerts at T-90 minutes (Advisory), T-45 minutes (Warning), and T-15 minutes (Critical) intervals to preempt overcrowding.
 
 ## System Architecture
 The solution is architected as a containerized microservices application:
-* **Frontend Service:** A React-based Single Page Application (SPA) serving the dashboard and map interfaces.
-* **Backend Service:** A Python FastAPI application acting as the orchestration layer and AI inference engine.
-* **Data Simulation:** A built-in engine that generates realistic synthetic data streams for demonstration and stress testing purposes.
+* **Frontend Service:** A React-based Single Page Application (SPA) providing the dashboard and geospatial visualizations.
+* **Backend Service:** A Python FastAPI application serving as the orchestration layer and hosting the AI inference engine.
+* **Data Simulation:** A built-in engine capable of generating realistic synthetic data streams for demonstration, load testing, and hackathon presentation purposes.
 
 ## Technical Stack
 
@@ -62,24 +62,24 @@ Ensure the following tools are installed on the host machine:
 
 ## Installation and Deployment
 
-The project is designed for rapid local deployment using Docker.
+The project is configured for rapid local deployment using Docker containers.
 
 1.  **Clone the Repository**
     ```bash
-    git clone [https://github.com/f9-o/NPPCS
+    git clone https://github.com/f9-o/NPPCS.git
     ```
     ```bash
-    cd sentinel-platform
+    cd NPPCS
     ```
 
 2.  **Build and Run Services**
-    Execute the following command to build the containers and start the application in detached mode:
+    Execute the following command to build the images and start the application in detached mode:
     ```bash
     docker-compose up --build -d
     ```
 
 3.  **Verify Deployment**
-    Ensure all containers are running:
+    Check the status of the containers to ensure they are active:
     ```bash
     docker-compose ps
     ```
@@ -87,16 +87,16 @@ The project is designed for rapid local deployment using Docker.
 ## Usage Guide
 
 ### Accessing the Dashboard
-Once the containers are running, access the application via a web browser:
+Once the system is running, access the user interface via a web browser:
 * **URL:** http://localhost:8000
 
 ### Operational Views
-1.  **Command Center:** The landing page provides a high-level view of all regional hospitals, weather conditions, and active EMS units.
-2.  **Hospital Detail View:** Select any hospital from the map to view detailed predictive analytics, including the 90-minute load forecast and specific operational alerts.
-3.  **Language Toggling:** Use the toggle button in the navigation bar to switch the interface between English (LTR) and Arabic (RTL).
+1.  **Command Center:** The primary dashboard provides a high-level view of all regional hospitals, current weather impact, and active EMS units.
+2.  **Hospital Detail View:** Select any hospital facility from the map to access detailed predictive analytics, including the 90-minute load forecast and facility-specific alerts.
+3.  **Language Toggling:** Use the toggle button in the navigation bar to switch the interface between English (LTR) and Arabic (RTL) modes.
 
 ## License
-This project is licensed under the MIT License. See the LICENSE file for more details.
+This project is distributed under the MIT License. See the LICENSE file for more details.
 
 ---
-**Disclaimer:** This software is a prototype designed for demonstration and hackathon purposes. It uses simulated data and is not intended for use in actual clinical or emergency response environments without further validation and integration with live production systems.
+**Disclaimer:** This software is a prototype developed for demonstration purposes. It utilizes simulated data streams and is not intended for deployment in clinical or emergency response environments without rigorous validation and integration with production systems.
