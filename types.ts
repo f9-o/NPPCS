@@ -21,7 +21,7 @@ export interface Hospital {
   trafficIndex: number; // 0-100
   weatherCondition: 'Clear' | 'Rain' | 'Sandstorm' | 'Heatwave';
   status: 'Normal' | 'Strain' | 'Critical';
-  specialties: string[]; // e.g., "Trauma", "Respiratory", "Pediatric"
+  specialties: string[];
 }
 
 export interface Ambulance {
@@ -34,15 +34,15 @@ export interface Ambulance {
 export interface WeatherZone {
   id: string;
   type: 'Rain' | 'Sandstorm' | 'Heatwave';
-  coordinates: Coordinates; // Center
-  radius: number; // Size of the hazard
+  coordinates: Coordinates;
+  radius: number;
   intensity: 'Moderate' | 'Severe';
 }
 
 export interface TransferPrediction {
   sourceId: string;
   targetId: string;
-  probability: number; // 0-100
+  probability: number;
   reasonEn: string;
   reasonAr: string;
   recommendedSpecialty?: string;
@@ -67,16 +67,22 @@ export interface Alert {
 
 export interface AIPredictionResponse {
   loadForecast: number[];
-  modelConfidence: number; // 0-100% Score
+  modelConfidence: number;
   qualityIndicators: {
-    expectedWaitTime: number; // TTA
+    expectedWaitTime: number;
     ambulanceOffloadTime: number;
   };
   factorAnalysis: {
-    seasonalScore: number; // Impact of seasonal diseases
+    seasonalScore: number;
     trafficScore: number;
     cadVolume: number;
   };
   alerts: Alert[];
   transfers: TransferPrediction[];
+}
+
+// --- NEW TYPES FOR LIVE MAP ---
+export interface LiveMapData {
+    ambulances: Ambulance[];
+    weatherZones: WeatherZone[];
 }

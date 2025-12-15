@@ -29,7 +29,10 @@ const App: React.FC = () => {
             <ShieldCheck className="text-white w-5 h-5" />
           </div>
           <div>
-            <h1 className="font-bold text-base leading-none tracking-tight text-white">SENTINEL <span className="text-indigo-400 font-mono text-xs">v2.1</span></h1>
+            {/* --- التعديل هنا: تغيير النص واللون للتأكد من التحديث --- */}
+            <h1 className="font-bold text-base leading-none tracking-tight text-white">
+              SENTINEL <span className="text-emerald-400 font-mono text-xs">v3.0 MAP</span>
+            </h1>
             <p className="text-[9px] text-slate-500 uppercase tracking-widest">{t.title}</p>
           </div>
         </div>

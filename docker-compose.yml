@@ -1,27 +1,17 @@
 version: '3.8'
 
 services:
-  # 1. Frontend (Next.js/React)
-  frontend:
+  # السيرفر الموحد (واجهة + ذكاء اصطناعي)
+  app:
     build: .
     ports:
-      - "3000:3000"
-    environment:
-      - REACT_APP_API_URL=http://localhost:8000
-    depends_on:
-      - backend
-
-  # 2. AI Backend (Python FastAPI)
-  backend:
-    build: ./backend
-    ports:
       - "8000:8000"
-    volumes:
-      - ./backend:/app
     environment:
       - PYTHONUNBUFFERED=1
+    depends_on:
+      - db
 
-  # 3. Database (PostgreSQL)
+  # قاعدة البيانات
   db:
     image: postgres:15-alpine
     environment:
