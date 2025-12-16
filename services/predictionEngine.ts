@@ -1,4 +1,4 @@
-import { Hospital, AIPredictionResponse } from "../types";
+import { Hospital, AIPredictionResponse } from "../src/types";
 
 const API_URL = "http://localhost:8000";
 

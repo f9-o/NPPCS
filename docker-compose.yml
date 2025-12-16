@@ -1,27 +1,8 @@
 version: '3.8'
-
 services:
-  # السيرفر الموحد (واجهة + ذكاء اصطناعي)
   app:
     build: .
     ports:
       - "8000:8000"
     environment:
       - PYTHONUNBUFFERED=1
-    depends_on:
-      - db
-
-  # قاعدة البيانات
-  db:
-    image: postgres:15-alpine
-    environment:
-      POSTGRES_USER: sentinel
-      POSTGRES_PASSWORD: localpassword
-      POSTGRES_DB: medical_response
-    ports:
-      - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-
-volumes:
-  postgres_data:
