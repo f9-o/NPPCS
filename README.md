@@ -1,9 +1,9 @@
-# NPPCS: National Predictive Patient Care System
+# NPPCS: National Predictive Patient Care System (Enterprise v3.3)
 
 ## Overview
-NPPCS (National Predictive Patient Care System) is an advanced, AI driven command center dashboard designed to enhance national medical resilience. The system utilizes machine learning algorithms to forecast Emergency Department (ED) loads, optimize hospital resource allocation in real-time, and coordinate disaster response across regional health networks.
+NPPCS (National Predictive Patient Care System) is an advanced, AI-driven command center dashboard designed to enhance national medical resilience. The system utilizes machine learning algorithms to forecast Emergency Department (ED) loads, optimize hospital resource allocation in real-time, and coordinate disaster response across regional health networks.
 
-Developed as a bilingual platform (English and Arabic), NPPCS integrates seven distinct operational data streams including live traffic, weather patterns, and historical admission data to provide actionable insights up to 90 minutes in advance. The system transforms reactive medical operations into proactive, data driven strategies.
+Currently in version **v3.3 Enterprise**, NPPCS features a fully localized bilingual interface (English/Arabic), multi-region support (Riyadh & Jeddah), and an integrated AI Voice Assistant for hands-free critical alerts. It fuses data from seven distinct operational streams—including live traffic, weather hazards, and CAD (Computer Aided Dispatch) feeds—to transform reactive medical operations into proactive, data-driven strategies.
 
 ## Table of Contents
 1.  [Key Features](#key-features)
@@ -16,44 +16,46 @@ Developed as a bilingual platform (English and Arabic), NPPCS integrates seven d
 
 ## Key Features
 
-### Predictive AI Engine
-* **Hospital-Specific Modeling:** Deploys distinct regression models trained on individual facility data patterns, accounting for local variables rather than regional averages.
-* **Seasonal Forecasting:** Incorporates seasonal coefficients to adjust predictions for periodic health trends (e.g., influenza seasons) and environmental factors.
-* **Predictive Quality Score (PQS):** Forecasts critical performance metrics including Time-to-Assessment (TTA) and Ambulance Offload Times, providing a deeper metric than simple census counts.
+### 1. Intelligent Command Center
+* **Multi-Region Support:** Simultaneous monitoring of critical sectors (e.g., Central Region/Riyadh and Western Region/Jeddah) with auto-centering geospatial visualization.
+* **Inter-Agency Integration:** A unified status panel linking Health sectors with Civil Defense (Fire), Red Crescent (EMS), and National Center for Meteorology (NCM).
+* **Live Ticker Feed:** A real-time, scrolling news ticker displaying operational updates, weather warnings, and system status without cluttering the map.
 
-### Live Tactical Operations
-* **Real-Time Geospatial Mapping:** Features a dynamic tactical map (v3.0) that renders live ambulance positions via CAD integration, visualizes hospital operational status, and overlays dynamic weather hazard zones.
-* **7-Point Data Fusion:** Synthesizes data from Weather services, Traffic feeds, Major Events calendars, Bed Capacity logs, Historical Trends, Live CAD streams, and Seasonal Patterns.
+### 2. Predictive AI Engine
+* **7-Point Data Fusion:** Synthesizes inputs from Weather, Traffic, Major Events, Bed Capacity, Historical Trends, Live CAD, and Seasonal Patterns to calculate Risk Scores (0-100).
+* **Hospital-Specific Modeling:** Deploys distinct regression models trained on individual facility patterns (e.g., Trauma Centers vs. General Hospitals).
+* **Predictive Quality Score (PQS):** Forecasts critical metrics including Time-to-Assessment (TTA) and Ambulance Offload Times up to 90 minutes in advance.
 
-### Decision Support
-* **Inter-facility Transfer Logic:** Algorithms analyze network-wide capacity to identify saturation points and recommend patient transfers to facilities with available specialized care.
-* **Timed Alert System:** Generates graduated operational alerts at T-90 minutes (Advisory), T-45 minutes (Warning), and T-15 minutes (Critical) intervals to preempt overcrowding.
+### 3. Active Response Systems
+* **AI Voice Assistant:** An integrated Text-to-Speech (TTS) engine that audibly announces critical alerts (e.g., "Critical Status Detected at King Fahad Hospital") to ensure operator attention.
+* **Timed Alert Logic:** Generates graduated alerts at T-90 (Advisory), T-45 (Warning), and T-15 (Critical) intervals.
+* **Inter-facility Transfer Logic:** Algorithms analyze network-wide capacity to recommend load-balancing transfers during saturation events.
 
 ## System Architecture
 The solution is architected as a containerized microservices application:
-* **Frontend Service:** A React-based Single Page Application (SPA) providing the dashboard and geospatial visualizations.
-* **Backend Service:** A Python FastAPI application serving as the orchestration layer and hosting the AI inference engine.
-* **Data Simulation:** A built-in engine capable of generating realistic synthetic data streams for demonstration, load testing, and hackathon presentation purposes.
+* **Frontend Service:** A React 19 application built with Vite and Tailwind CSS, featuring a darker, high-contrast "Dark Mode" UI optimized for 24/7 command centers.
+* **Backend Service:** A Python FastAPI application acting as the orchestration layer and hosting the NumPy-based inference engine.
+* **Data Simulation:** A built-in engine generating realistic synthetic streams for load testing and demonstration.
 
 ## Technical Stack
 
 ### Frontend
 * **Framework:** React 19 with TypeScript
 * **Build Tool:** Vite
-* **State Management:** React Hooks
-* **Visualization:** Recharts (Analytics), Leaflet & React-Leaflet (Mapping)
-* **Styling:** Tailwind CSS
+* **Styling:** Tailwind CSS (with PostCSS & Autoprefixer)
+* **Mapping:** Leaflet & React-Leaflet (CartoDB Dark Matter tiles)
+* **Visualization:** Recharts (Radar & Area Charts)
 
 ### Backend & AI
 * **Runtime:** Python 3.9
-* **API Framework:** FastAPI
-* **Data Processing:** Pandas, NumPy
-* **Machine Learning:** Scikit-learn (Regression & Time-series forecasting)
+* **API:** FastAPI (Uvicorn ASGI)
+* **Data Processing:** NumPy, Pandas
+* **Logic:** Weighted Linear Regression & Normal Distribution Simulation
 
-### DevOps & Infrastructure
+### DevOps
 * **Containerization:** Docker
 * **Orchestration:** Docker Compose
-* **Server:** Uvicorn (ASGI)
+* **Optimization:** .dockerignore implementation for clean builds
 
 ## Prerequisites
 Ensure the following tools are installed on the host machine:
@@ -62,7 +64,7 @@ Ensure the following tools are installed on the host machine:
 
 ## Installation and Deployment
 
-The project is configured for rapid local deployment using Docker containers.
+The project is configured for rapid local deployment using Docker.
 
 1.  **Clone the Repository**
     ```bash
@@ -72,31 +74,36 @@ The project is configured for rapid local deployment using Docker containers.
     cd NPPCS
     ```
 
-2.  **Build and Run Services**
-    Execute the following command to build the images and start the application in detached mode:
+2.  **Clean Build & Run**
+    Execute the following command to remove any cached layers and build the enterprise version:
     ```bash
-    docker-compose up --build -d
+    docker-compose down --rmi all
+    ```
+    ```bash
+    docker-compose build --no-cache
+    ```
+    ```bash
+    docker-compose up
     ```
 
 3.  **Verify Deployment**
-    Check the status of the containers to ensure they are active:
-    ```bash
-    docker-compose ps
-    ```
+    The terminal will display:
+    `NPPCS SYSTEM ONLINE`
+    `ACCESS DASHBOARD: http://localhost:8000`
 
 ## Usage Guide
 
 ### Accessing the Dashboard
-Once the system is running, access the user interface via a web browser:
 * **URL:** http://localhost:8000
 
-### Operational Views
-1.  **Command Center:** The primary dashboard provides a high-level view of all regional hospitals, current weather impact, and active EMS units.
-2.  **Hospital Detail View:** Select any hospital facility from the map to access detailed predictive analytics, including the 90-minute load forecast and facility-specific alerts.
-3.  **Language Toggling:** Use the toggle button in the navigation bar to switch the interface between English (LTR) and Arabic (RTL) modes.
+### Operational Controls
+* **Fullscreen Mode:** Click the maximize icon in the navbar to enter immersive command center mode.
+* **Voice Assistant:** Toggle the speaker icon to enable/disable audible alerts.
+* **Region Selection:** Use the sidebar to instantly navigate between hospital facilities.
+* **Language:** Toggle between English (LTR) and Arabic (RTL) for full localization.
 
 ## License
 This project is distributed under the MIT License. See the LICENSE file for more details.
 
 ---
-**Disclaimer:** This software is a prototype developed for demonstration purposes. It utilizes simulated data streams and is not intended for deployment in clinical or emergency response environments without rigorous validation and integration with production systems.
+**Disclaimer:** This software is a prototype developed for Hackathon demonstration purposes. It utilizes simulated data streams and is intended to showcase architectural capabilities for national medical resilience.
