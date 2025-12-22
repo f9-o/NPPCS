@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Hospital, Language, AIPredictionResponse } from '../types';
 import { TEXT } from '../constants';
-import { ArrowLeft, TrendingUp, Download, ScrollText, Radar, Siren, Activity } from 'lucide-react';
+import { ArrowLeft, TrendingUp, Download, Radar, Siren, Activity, RefreshCw } from 'lucide-react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar as RechartsRadar } from 'recharts';
 
 const fetchPrediction = async (hospitalId: string): Promise<AIPredictionResponse> => {
-  const response = await fetch(`http://localhost:8000/hospitals/${hospitalId}/predict`);
-  if (!response.ok) throw new Error('Failed to fetch');
+  const response = await fetch(`/hospitals/${hospitalId}/predict`);
+  
+  if (!response.ok) {
+    throw new Error(`Server Error: ${response.status}`);
+  }
   return response.json();
 };
 
@@ -21,13 +24,56 @@ const HospitalDetail: React.FC<HospitalDetailProps> = ({ hospital, lang, onBack 
   const isRtl = lang === Language.AR;
   const [prediction, setPrediction] = useState<AIPredictionResponse | null>(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  const loadData = () => {
+    setLoading(true);
+    setError(null);
+    fetchPrediction(hospital.id)
+      .then(data => {
+        setPrediction(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error(err);
+        setError(err.message);
+        setLoading(false);
+      });
+  };
 
   useEffect(() => {
-    setLoading(true);
-    fetchPrediction(hospital.id).then(data => { setPrediction(data); setLoading(false); }).catch(() => setLoading(false));
+    loadData();
   }, [hospital.id]);
 
-  if (loading) return <div className="w-full h-full flex items-center justify-center text-slate-400 font-mono">INITIALIZING AI MODEL...</div>;
+  // شاشة التحميل
+  if (loading) {
+    return (
+        <div className="w-full h-full flex flex-col items-center justify-center text-slate-400 font-mono gap-4">
+            <div className="animate-spin w-8 h-8 border-2 border-indigo-500 border-t-transparent rounded-full"></div>
+            <span>INITIALIZING AI MODEL... (This may take a moment on Render)</span>
+        </div>
+    );
+  }
+
+  if (error) {
+    return (
+        <div className="w-full h-full flex flex-col items-center justify-center text-red-400 font-mono gap-4">
+            <Siren className="w-12 h-12 mb-2" />
+            <div className="text-xl font-bold">CONNECTION FAILED</div>
+            <p className="text-sm text-slate-500">{error}</p>
+            <button 
+                onClick={loadData}
+                className="mt-4 flex items-center gap-2 px-4 py-2 bg-slate-800 hover:bg-slate-700 rounded border border-slate-700 text-white transition-colors"
+            >
+                <RefreshCw className="w-4 h-4" /> Retry Connection
+            </button>
+            <button onClick={onBack} className="mt-2 text-xs text-slate-500 hover:text-slate-300 underline">
+                Return to Map
+            </button>
+        </div>
+    );
+  }
+
   if (!prediction) return null;
 
   const chartData = prediction.loadForecast.map((val, idx) => ({ time: `+${(idx + 1) * 15}m`, load: val }));
@@ -99,7 +145,6 @@ const HospitalDetail: React.FC<HospitalDetailProps> = ({ hospital, lang, onBack 
           </div>
         </div>
         
-        {/* Active Alerts */}
         <div className="col-span-12 lg:col-span-3">
             <div className="bg-slate-900/80 backdrop-blur border border-slate-800 p-4 rounded-2xl shadow-lg">
                  <h3 className="text-sm font-bold text-slate-300 uppercase tracking-widest mb-4 flex items-center gap-2"><Siren className="w-4 h-4 text-red-500 animate-pulse" /> Active Alerts</h3>
