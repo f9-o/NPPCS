@@ -5,8 +5,6 @@ import Dashboard from './components/Dashboard';
 import HospitalDetail from './components/HospitalDetail';
 import { Globe, Maximize, Volume2, VolumeX, Server, AlertTriangle } from 'lucide-react';
 
-// لاحظ: حذفنا سطر الاستيراد import logoImg...
-
 const App: React.FC = () => {
   const [lang, setLang] = useState<Language>(Language.EN);
   const [selectedHospitalId, setSelectedHospitalId] = useState<string | null>(null);
@@ -53,11 +51,9 @@ const App: React.FC = () => {
         <div className="flex items-center gap-4">
           <div className="relative group cursor-pointer">
             <div className="absolute -inset-1 bg-gradient-to-r from-emerald-600 to-teal-600 rounded-full blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200"></div>
-            {/* التغيير هنا: استخدمنا الرابط المباشر للصورة 
-                Vite سيجلبها تلقائياً من مجلد public 
-            */}
+            {/* تم تحديث الرابط هنا ليطابق الاسم الجديد */}
             <img 
-                src="/logo.png" 
+                src="/nppcs-logo.png" 
                 alt="NCCPS Logo" 
                 className="relative h-10 w-auto object-contain filter drop-shadow-[0_0_8px_rgba(16,185,129,0.5)]" 
             />
