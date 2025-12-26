@@ -1,13 +1,5 @@
-export enum Language {
-  EN = 'en',
-  AR = 'ar'
-}
-
-export interface Coordinates {
-  x: number;
-  y: number;
-}
-
+export enum Language { EN = 'en', AR = 'ar' }
+export interface Coordinates { x: number; y: number; }
 export interface Hospital {
   id: string;
   nameEn: string;
@@ -23,14 +15,12 @@ export interface Hospital {
   status: 'Normal' | 'Strain' | 'Critical';
   specialties: string[];
 }
-
 export interface Ambulance {
   id: string;
   status: string;
   coordinates: Coordinates;
   type: string;
 }
-
 export interface WeatherZone {
   id: string;
   type: string;
@@ -38,7 +28,13 @@ export interface WeatherZone {
   radius: number;
   intensity: string;
 }
-
+export interface TrafficRoute {
+    id: string;
+    name: string;
+    coordinates: [number, number][];
+    status: 'Clear' | 'Moderate' | 'Congested';
+    color: string;
+}
 export interface Alert {
   id: string;
   timestamp: string;
@@ -49,7 +45,6 @@ export interface Alert {
   actionAr: string;
   severity: 'low' | 'medium' | 'high';
 }
-
 export interface Transfer {
   sourceId: string;
   targetId: string;
@@ -58,24 +53,21 @@ export interface Transfer {
   reasonAr: string;
   recommendedSpecialty: string;
 }
-
 export interface AIPredictionResponse {
   loadForecast: number[];
   modelConfidence: number;
   qualityIndicators: {
     expectedWaitTime: number;
     ambulanceOffloadTime: number;
-  };
-  factorAnalysis: {
-    seasonalScore: number;
-    trafficScore: number;
-    cadVolume: number;
+    inboundEmsCount: number;
+    rootCauseEn: string;
+    rootCauseAr: string;
   };
   alerts: Alert[];
   transfers: Transfer[];
 }
-
 export interface LiveMapData {
     ambulances: Ambulance[];
     weatherZones: WeatherZone[];
+    trafficRoutes: TrafficRoute[];
 }

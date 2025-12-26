@@ -6,17 +6,15 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 from engine import PredictionEngine
 
-# Minimal Logging
 logging.basicConfig(level=logging.ERROR)
-logger = logging.getLogger("nppcs-backend")
+logger = logging.getLogger("nccps-backend")
 
-app = FastAPI(title="NPPCS Core", version="3.3.0")
+app = FastAPI(title="NCCPS Core", version="1.0.0")
 
-# Startup Event
 @app.on_event("startup")
 async def startup_event():
     print("\n" + "="*50)
-    print(" NPPCS SYSTEM ONLINE")
+    print(" NCCPS MVP SYSTEM ONLINE")
     print(" ACCESS DASHBOARD: http://localhost:8000")
     print("="*50 + "\n")
 

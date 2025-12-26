@@ -4,6 +4,8 @@ import { INITIAL_HOSPITALS, TEXT } from './constants';
 import Dashboard from './components/Dashboard';
 import HospitalDetail from './components/HospitalDetail';
 import { Globe, Maximize, Volume2, VolumeX, Server, AlertTriangle } from 'lucide-react';
+// استيراد اللوقو
+import logoImg from './assets/logo.png'; 
 
 const App: React.FC = () => {
   const [lang, setLang] = useState<Language>(Language.EN);
@@ -11,15 +13,6 @@ const App: React.FC = () => {
   const [soundEnabled, setSoundEnabled] = useState(true);
   const [lastAlertTime, setLastAlertTime] = useState(0);
 
-  // SVG Logo
-  const NppcsLogo = () => (
-    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M12 22C12 22 20 18 20 12V5L12 2L4 5V12C4 18 12 22 12 22Z" fill="#059669" stroke="#10B981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-      <path d="M9 12L11 14L15 10" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-    </svg>
-  );
-
-  // Voice Assistant
   const speakAlert = (text: string) => {
     if (!soundEnabled || !window.speechSynthesis) return;
     if (Date.now() - lastAlertTime > 15000) {
@@ -58,12 +51,19 @@ const App: React.FC = () => {
       {/* Navbar */}
       <nav className="h-16 border-b border-slate-800 bg-slate-900 flex items-center justify-between px-6 shrink-0 z-50 shadow-2xl">
         <div className="flex items-center gap-4">
-          <div className="filter drop-shadow-[0_0_10px_rgba(16,185,129,0.5)]">
-            <NppcsLogo />
+          <div className="relative group cursor-pointer">
+            <div className="absolute -inset-1 bg-gradient-to-r from-emerald-600 to-teal-600 rounded-full blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200"></div>
+            {/* اللوقو */}
+            <img 
+                src={logoImg} 
+                alt="NCCPS Logo" 
+                className="relative h-10 w-auto object-contain filter drop-shadow-[0_0_8px_rgba(16,185,129,0.5)]" 
+            />
           </div>
+          
           <div>
             <h1 className="font-black text-xl leading-none tracking-tight text-white flex items-center gap-2">
-              NPPCS <span className="bg-emerald-500/10 text-emerald-400 border border-emerald-500/50 px-1.5 rounded text-[10px] font-mono">v3.3 ENTERPRISE</span>
+              NCCPS <span className="bg-emerald-500/10 text-emerald-400 border border-emerald-500/50 px-1.5 rounded text-[10px] font-mono">MVP</span>
             </h1>
             <p className="text-[10px] text-slate-500 uppercase tracking-[0.2em] font-bold mt-1">{t.title}</p>
           </div>
@@ -85,7 +85,7 @@ const App: React.FC = () => {
         </div>
       </nav>
 
-      {/* Ticker - No Emojis */}
+      {/* Ticker */}
       <div className="bg-red-950/40 border-b border-red-900/30 h-7 flex items-center overflow-hidden relative backdrop-blur-md">
         <div className="absolute left-0 bg-red-900 px-3 h-full flex items-center z-10 font-black text-[10px] text-white uppercase tracking-widest border-r border-red-700 shadow-xl">
             <AlertTriangle className="w-3 h-3 mr-2" /> LIVE FEED
@@ -93,7 +93,7 @@ const App: React.FC = () => {
         <div className="whitespace-nowrap animate-marquee flex items-center gap-20 text-[10px] font-mono text-red-200/90 font-bold">
             <span>[ALERT] SANDSTORM DETECTED IN RIYADH SECTOR 4</span>
             <span>[EMS] RED CRESCENT UNIT 101 RESPONDING TO TRAUMA CODE</span>
-            <span>[SYSTEM] AI FORECAST CONFIDENCE 98%</span>
+            <span>[SYSTEM] NCCPS AI ENGINE: ONLINE</span>
             <span>[CIVIL DEFENSE] HEATWAVE WARNING IN JEDDAH SECTOR</span>
         </div>
       </div>
@@ -113,7 +113,7 @@ const App: React.FC = () => {
           </span>
           <span className="flex items-center gap-1.5"><Server className="w-3 h-3" /> 8ms</span>
         </div>
-        <div>SECURE CONNECTION // LOCALHOST</div>
+        <div>NCCPS SECURE CONNECTION</div>
       </footer>
     </div>
   );

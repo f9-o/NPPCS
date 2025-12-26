@@ -1,7 +1,7 @@
 {
-  "name": "nppcs-enterprise",
+  "name": "nccps-mvp",
   "private": true,
-  "version": "3.3.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",

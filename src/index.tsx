@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
-import './index.css'; // Importing styles
+import './index.css';
 
 const rootElement = document.getElementById('root');
 if (!rootElement) throw new Error("Root not found");
