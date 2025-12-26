@@ -5,7 +5,7 @@ import Dashboard from './components/Dashboard';
 import HospitalDetail from './components/HospitalDetail';
 import { Globe, Maximize, Volume2, VolumeX, Server, AlertTriangle } from 'lucide-react';
 // استيراد اللوقو
-import logoImg from './assets/logo.png'; 
+import logoImg from './assets/app-logo.png'; 
 
 const App: React.FC = () => {
   const [lang, setLang] = useState<Language>(Language.EN);
