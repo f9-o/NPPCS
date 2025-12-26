@@ -4,8 +4,8 @@ import { INITIAL_HOSPITALS, TEXT } from './constants';
 import Dashboard from './components/Dashboard';
 import HospitalDetail from './components/HospitalDetail';
 import { Globe, Maximize, Volume2, VolumeX, Server, AlertTriangle } from 'lucide-react';
-// استيراد اللوقو
-import logoImg from './assets/app-logo.png'; 
+
+// لاحظ: حذفنا سطر الاستيراد import logoImg...
 
 const App: React.FC = () => {
   const [lang, setLang] = useState<Language>(Language.EN);
@@ -53,9 +53,11 @@ const App: React.FC = () => {
         <div className="flex items-center gap-4">
           <div className="relative group cursor-pointer">
             <div className="absolute -inset-1 bg-gradient-to-r from-emerald-600 to-teal-600 rounded-full blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200"></div>
-            {/* اللوقو */}
+            {/* التغيير هنا: استخدمنا الرابط المباشر للصورة 
+                Vite سيجلبها تلقائياً من مجلد public 
+            */}
             <img 
-                src={logoImg} 
+                src="/logo.png" 
                 alt="NCCPS Logo" 
                 className="relative h-10 w-auto object-contain filter drop-shadow-[0_0_8px_rgba(16,185,129,0.5)]" 
             />
@@ -63,7 +65,7 @@ const App: React.FC = () => {
           
           <div>
             <h1 className="font-black text-xl leading-none tracking-tight text-white flex items-center gap-2">
-              NCCPS <span className="bg-emerald-500/10 text-emerald-400 border border-emerald-500/50 px-1.5 rounded text-[10px] font-mono">MVP</span>
+              NPPCS <span className="bg-emerald-500/10 text-emerald-400 border border-emerald-500/50 px-1.5 rounded text-[10px] font-mono">v3.3 ENTERPRISE</span>
             </h1>
             <p className="text-[10px] text-slate-500 uppercase tracking-[0.2em] font-bold mt-1">{t.title}</p>
           </div>
@@ -93,7 +95,7 @@ const App: React.FC = () => {
         <div className="whitespace-nowrap animate-marquee flex items-center gap-20 text-[10px] font-mono text-red-200/90 font-bold">
             <span>[ALERT] SANDSTORM DETECTED IN RIYADH SECTOR 4</span>
             <span>[EMS] RED CRESCENT UNIT 101 RESPONDING TO TRAUMA CODE</span>
-            <span>[SYSTEM] NCCPS AI ENGINE: ONLINE</span>
+            <span>[SYSTEM] AI FORECAST CONFIDENCE 98%</span>
             <span>[CIVIL DEFENSE] HEATWAVE WARNING IN JEDDAH SECTOR</span>
         </div>
       </div>
@@ -113,7 +115,7 @@ const App: React.FC = () => {
           </span>
           <span className="flex items-center gap-1.5"><Server className="w-3 h-3" /> 8ms</span>
         </div>
-        <div>NCCPS SECURE CONNECTION</div>
+        <div>SECURE CONNECTION // LOCALHOST</div>
       </footer>
     </div>
   );
