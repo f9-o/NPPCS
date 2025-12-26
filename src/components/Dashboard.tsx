@@ -44,6 +44,14 @@ const Dashboard: React.FC<DashboardProps> = ({ hospitals, lang, onSelectHospital
       trafficRoutes: TRAFFIC_ROUTES 
   });
 
+  // --- التعديل هنا: منطق الترتيب (Sorting Logic) ---
+  // نعطي وزن لكل حالة: Critical=3, Strain=2, Normal=1
+  const sortedHospitals = [...hospitals].sort((a, b) => {
+      const priority: Record<string, number> = { 'Critical': 3, 'Strain': 2, 'Normal': 1 };
+      // ترتيب تنازلي (الأعلى وزناً يظهر أولاً)
+      return (priority[b.status] || 0) - (priority[a.status] || 0);
+  });
+
   return (
     <div className="flex w-full h-full bg-slate-950 overflow-hidden relative">
       <div className="w-80 bg-slate-900/95 backdrop-blur-xl border-r border-slate-800 p-4 flex flex-col gap-4 z-20 shadow-2xl absolute left-0 top-0 h-full">
@@ -59,14 +67,16 @@ const Dashboard: React.FC<DashboardProps> = ({ hospitals, lang, onSelectHospital
           </div>
           
           <div className="text-xs font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2 pb-2 border-b border-slate-800"><Activity className="w-4 h-4 text-indigo-500" /> {isRtl ? 'حالة القطاعات' : 'Sector Status'}</div>
+          
+          {/* استخدام القائمة المرتبة sortedHospitals */}
           <div className="flex flex-col gap-3 overflow-y-auto flex-1 custom-scrollbar">
-            {hospitals.map(h => (
-                <button key={h.id} onClick={() => onSelectHospital(h.id)} className={`group flex items-center justify-between p-3 rounded-xl border transition-all duration-300 ${h.status === 'Critical' ? 'bg-red-950/30 border-red-900/50 hover:bg-red-900/40' : 'bg-emerald-950/30 border-emerald-900/50 hover:bg-emerald-900/40'}`}>
+            {sortedHospitals.map(h => (
+                <button key={h.id} onClick={() => onSelectHospital(h.id)} className={`group flex items-center justify-between p-3 rounded-xl border transition-all duration-300 ${h.status === 'Critical' ? 'bg-red-950/30 border-red-900/50 hover:bg-red-900/40' : h.status === 'Strain' ? 'bg-amber-950/30 border-amber-900/50 hover:bg-amber-900/40' : 'bg-emerald-950/30 border-emerald-900/50 hover:bg-emerald-900/40'}`}>
                     <div className="text-left">
                         <div className="text-sm font-bold text-slate-200">{isRtl ? h.nameAr : h.nameEn}</div>
                         <div className="text-[10px] text-slate-500 mt-0.5">{isRtl ? h.regionAr : h.regionEn} Region</div>
                     </div>
-                    <div className={`w-2 h-2 rounded-full ${h.status === 'Critical' ? 'bg-red-500 animate-pulse' : 'bg-emerald-500'}`} />
+                    <div className={`w-2 h-2 rounded-full ${h.status === 'Critical' ? 'bg-red-500 animate-pulse' : h.status === 'Strain' ? 'bg-amber-500' : 'bg-emerald-500'}`} />
                 </button>
             ))}
           </div>
